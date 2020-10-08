@@ -7,12 +7,15 @@ var IM = L.featureGroup.subGroup(parentGroup);
 var MAY = L.featureGroup.subGroup(parentGroup);
 var ANP = L.featureGroup.subGroup(parentGroup);
 var MDC = L.featureGroup.subGroup(parentGroup);
+var EEE = L.featureGroup.subGroup(parentGroup);
+
 
 // Google Spreadsheet
 var spreadsheetID = "1gBBlBkU2nMio5MV_qadALPZSRR-SSLQ6zWPNRNTj5ms";
+var spreadsheetID2 = "1Q7EuLFDoAN5qXNXG_86lfxUx7IvWTOvP0sCf63-fdMI";
 var url =
   "https://spreadsheets.google.com/feeds/list/" +
-  spreadsheetID +
+  spreadsheetID2 +
   "/1/public/values?alt=json";
 
 // Icons
@@ -43,15 +46,15 @@ L.icon = function(options) {
 };
 
 const icons = {
-  CDIOK: redIcon,
-  CDI: redIcon,
-  CDR: blueIcon,
+  CDI: blueIcon,
+  CDR: greenIcon,
   CIC: orangeIcon,
-  HUE: greenIcon,
-  IM: goldIcon,
-  MAY: greyIcon,
-  ANP: violetIcon,
-  MDC: yellowIcon
+  EEE: greyIcon
+  // HUE: greenIcon,
+  // IM: goldIcon,
+  // MAY: greyIcon,
+  // ANP: violetIcon,
+  // MDC: yellowIcon
 };
 
 // Buscamos los datos Json de Google
@@ -96,27 +99,37 @@ fetch(url)
             "<p>" +
             tel +
             "</p>" +
-            btnWeb +
-            '<p><a target="_blank" href="https://www.argentina.gob.ar/desarrollosocial/sumainformacion">Sumá información</a></p>'
+            btnWeb
+            // '<p><a target="_blank" href="https://www.argentina.gob.ar/desarrollosocial/sumainformacion">Sumá información</a></p>'
         )
         .addTo(eval(cat));
     }
   });
 
 // Estilos
-/* var mapboxUrl =
+var mapboxUrl =
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3Jpc3RpYW5vamVkYSIsImEiOiJjazVzNWRnczcwa2c0M2ttcXpzNzl6aGV1In0.weNfOTYnFN4OOCj0pye69g";
-var streets = L.tileLayer(mapboxUrl, {
-  id: "mapbox/streets-v11",
+
+//   var streets = L.tileLayer(mapboxUrl, {
+//   id: "mapbox/streets-v11",
+//   tileSize: 512,
+//   zoomOffset: -1
+// });
+// var satellite = L.tileLayer(mapboxUrl, {
+//   id: "cristianojeda/ck5wlrbjg042x1in6xgq6dop9",
+//   tileSize: 512,
+//   zoomOffset: -1
+// });
+var barriospopulares = L.tileLayer(mapboxUrl, {
+  id: "cristianojeda/ckg0z38hh2q8218pg889xbhr1",
   tileSize: 512,
-  zoomOffset: -1
-});
-var satellite = L.tileLayer(mapboxUrl, {
-  id: "cristianojeda/ck5wlrbjg042x1in6xgq6dop9",
+  zoomOffset: -1,
+})
+var barriospopularesAMBA = L.tileLayer(mapboxUrl, {
+  id: "cristianojeda/ck5wlv6np0gv11irhsi6ao9al",
   tileSize: 512,
-  zoomOffset: -1
-});
-*/
+  zoomOffset: -1,
+})
 var mapa = L.tileLayer("https://gis.argentina.gob.ar/osm/{z}/{x}/{y}.png", {
   attribution:
     '&copy; Contribuidores <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -125,27 +138,33 @@ var mapa = L.tileLayer("https://gis.argentina.gob.ar/osm/{z}/{x}/{y}.png", {
 var map = L.map("map", { layers: [mapa, CDI] }).setView([-40.44, -63.59], 4);
 parentGroup.addTo(map);
 CDI.addTo(map);
-CDR.addTo(map);
-MDC.addTo(map);
-CIC.addTo(map);
-HUE.addTo(map);
-IM.addTo(map);
-MAY.addTo(map);
-ANP.addTo(map);
+// CDR.addTo(map);
+// CIC.addTo(map);
+// EEE.addTo(map);
+// MDC.addTo(map);
+// HUE.addTo(map);
+// IM.addTo(map);
+// MAY.addTo(map);
+// ANP.addTo(map);
 
 var baseMaps = {
-  Mapa: mapa
+  "Mapa": mapa,
+  // "Calles": streets,
+  // "Satélite": satellite,
+  "Barrios Populares": barriospopulares,
+  "Barrios Populares AMBA": barriospopularesAMBA
 };
 
 const overlayMaps = {
   "Centros de Desarrollo Infantil": CDI,
   "Centros de Referencia": CDR,
   "Centros Integradores Comunitarios": CIC,
-  "Consejo Federal de Mayores": MAY,
-  "Instituciones de Microcrédito": IM,
-  "Mercados Solidarios": MDC,
-  "Organismos de Protección Integral": ANP,
-  "Pro Huerta": HUE
+  "Establecimientos Educativos Educación": EEE
+  // "Consejo Federal de Mayores": MAY,
+  // "Instituciones de Microcrédito": IM,
+  // "Mercados Solidarios": MDC,
+  // "Organismos de Protección Integral": ANP,
+  // "Pro Huerta": HUE
 };
 
 L.Control.mostrar = L.Control.extend({
@@ -165,21 +184,23 @@ L.Control.mostrar = L.Control.extend({
         CDI.remove();
         CDR.remove();
         CIC.remove();
-        HUE.remove();
-        IM.remove();
-        MAY.remove();
-        ANP.remove();
-        MDC.remove();
+        EEE.remove();        
+        // HUE.remove();
+        // IM.remove();
+        // MAY.remove();
+        // ANP.remove();
+        // MDC.remove();
         visible = 0;
       } else {
         CDI.addTo(map);
         CDR.addTo(map);
         CIC.addTo(map);
-        HUE.addTo(map);
-        IM.addTo(map);
-        MAY.addTo(map);
-        ANP.addTo(map);
-        MDC.addTo(map);
+        EEE.addTo(map);
+        // HUE.addTo(map);
+        // IM.addTo(map);
+        // MAY.addTo(map);
+        // ANP.addTo(map);
+        // MDC.addTo(map);
         visible = 1;
       }
     });
@@ -249,6 +270,6 @@ var collapsedMenu = window.screen.width < 800 ? true : false;
 L.control
   .layers(baseMaps, overlayMaps, {
     collapsed: collapsedMenu,
-    hideSingleBase: true
+    hideSingleBase: false
   })
   .addTo(map);
