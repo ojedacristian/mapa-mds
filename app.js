@@ -130,6 +130,12 @@ var barriospopularesAMBA = L.tileLayer(mapboxUrl, {
   tileSize: 512,
   zoomOffset: -1,
 })
+var indecdepto = L.tileLayer(mapboxUrl, {
+  id: "cristianojeda/ckg1esivs08cj19qen7o5h00n",
+  tileSize: 512,
+  zoomOffset: -1,
+})
+
 var mapa = L.tileLayer("https://gis.argentina.gob.ar/osm/{z}/{x}/{y}.png", {
   attribution:
     '&copy; Contribuidores <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -152,7 +158,8 @@ var baseMaps = {
   // "Calles": streets,
   // "Satélite": satellite,
   "Barrios Populares": barriospopulares,
-  "Barrios Populares AMBA": barriospopularesAMBA
+  "Barrios Populares AMBA": barriospopularesAMBA,
+  "Indec por Departamento": indecdepto
 };
 
 const overlayMaps = {
