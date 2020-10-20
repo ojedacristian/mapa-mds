@@ -32,6 +32,7 @@ var ColorIcons = L.Icon.extend({
 var urlIcons =
   "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-";
 var blueIcon = new ColorIcons({ iconUrl: urlIcons + "blue.png" }),
+  cdiIcon = new ColorIcons({ iconUrl: "https://raw.githubusercontent.com/ojedacristian/mapa-mds/master/icons/cdi_marker.png" })
   goldIcon = new ColorIcons({ iconUrl: urlIcons + "gold.png" }),
   redIcon = new ColorIcons({ iconUrl: urlIcons + "red.png" }),
   greenIcon = new ColorIcons({ iconUrl: urlIcons + "green.png" }),
@@ -46,8 +47,8 @@ L.icon = function(options) {
 };
 
 const icons = {
-  CDI: blueIcon,
-  CDR: greenIcon,
+  CDI: cdiIcon,
+  CDR: blueIcon,
   CIC: orangeIcon,
   EEE: greyIcon
   // HUE: greenIcon,
